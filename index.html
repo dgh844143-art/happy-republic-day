@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Republic Day - Teri Mitti</title>
+    <style>
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; color: #fff; font-family: 'Arial', sans-serif; overflow-x: hidden; text-align: center; }
+        
+        /* एड्स के लिए स्टाइल */
+        .ad-container { width: 100%; min-height: 60px; background: rgba(255,255,255,0.05); margin: 5px 0; display: flex; align-items: center; justify-content: center; border: 1px dashed #444; color: #666; font-size: 12px; }
+
+        .main-title {
+            font-size: 32px; font-weight: bold; margin: 15px 0;
+            background: linear-gradient(to bottom, #FF9933 33%, #FFFFFF 33%, #FFFFFF 66%, #138808 66%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 10px #FF9933); animation: glow 1s infinite alternate;
+        }
+        @keyframes glow { from { transform: scale(1); } to { transform: scale(1.05); } }
+
+        .fire-box { display: inline-block; border: 3px solid #fff; margin: 15px 0; box-shadow: 0 0 30px #f00, 0 0 50px #ff9933; }
+
+        .container { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 20px; width: 85%; margin: 10px auto; border: 1px solid #138808; }
+        input { padding: 12px; width: 80%; border-radius: 8px; border: none; font-size: 18px; text-align: center; margin-bottom: 15px; color: #000; }
+        
+        .whatsapp-btn {
+            background: #25D366; color: white; padding: 15px 25px; border-radius: 50px;
+            text-decoration: none; font-weight: bold; display: flex; align-items: center;
+            justify-content: center; margin: 0 auto; cursor: pointer; font-size: 18px; border: none;
+        }
+        .whatsapp-btn img { width: 25px; margin-right: 10px; }
+    </style>
+</head>
+<body onclick="playAll()">
+
+    <div class="ad-container" id="top-ad">
+        ADVERTISEMENT
+    </div>
+
+    <div class="main-title">गणतंत्र दिवस की हार्दिक शुभकामनाएँ</div>
+
+    <div class="fire-box">
+        <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" width="260">
+    </div>
+
+    <h4 style="color: #FF9933; margin: 10px 0;">"ए मेरी ज़मीं, महबूब मेरी... तेरी मिट्टी में मिल जावाँ"</h4>
+
+    <div class="container">
+        <input type="text" id="nameBox" placeholder="यहाँ अपना नाम लिखें">
+        <button class="whatsapp-btn" onclick="shareIt()">
+            <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png"> Share on Social Media
+        </button>
+    </div>
+
+    <div class="ad-container" id="bottom-ad">
+        ADVERTISEMENT
+    </div>
+
+    <audio id="teriMitti" loop><source src="https://www.pagalworld.com.se/files/download/id/64635" type="audio/mpeg"></audio>
+    <audio id="fireSound"><source src="https://www.soundjay.com/mechanical/firework-rocket-01.mp3" type="audio/mpeg"></audio>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script>
+        var song = document.getElementById("teriMitti");
+        var burst = document.getElementById("fireSound");
+
+        function playAll() {
+            song.play(); 
+            burst.currentTime = 0;
+            burst.play();
+            confetti({
+                particleCount: 100, spread: 70, origin: { y: 0.6 },
+                colors: ['#FF9933', '#FFFFFF', '#138808']
+            });
+        }
+
+        function shareIt() {
+            var n = document.getElementById("nameBox").value;
+            if(n == "") { alert("नाम तो लिखो भाई!"); return; }
+            var msg = "🇮🇳 *" + n + "* ने आपके लिए एक देशभक्ति संदेश भेजा है।\nगाना सुनने के लिए लिंक खोलें 👇\n" + window.location.href;
+            if (navigator.share) {
+                navigator.share({ title: 'Republic Day', text: msg, url: window.location.href });
+            } else {
+                window.open("whatsapp://send?text=" + encodeURIComponent(msg));
+            }
+        }
+    </script>
+</body>
+</html>
